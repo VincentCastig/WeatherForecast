@@ -55,4 +55,7 @@ myApp.controller('forecastController', function($scope, $resource, cityService){
     $scope.convertToFahrenheit = function(k) {
         return Math.round((1.8 * (k - 273)) + 32)
     }
+    $scope.convertToDate = function(dt) {
+        return new Date(dt * 1000);
+    }
 });
