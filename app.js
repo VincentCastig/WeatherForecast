@@ -18,9 +18,19 @@ var myApp = angular.module('myApp', ['ui.router', 'ngResource'])
 });
 
 //services
-myApp.service('cityService', function() {
-    this.city = 'New York, NY'
+myApp.service('cityService', function($http) {
+    this.city = 'Berlin';
+
+    this.getWeather = (city) => {
+        return $http({
+        method: "GET",
+        url: `http://api.openweathermap.org/data/2.5/forecast?q=${city}&cnt=3&APPID=64c25a5bbade86005c613ed5edc028a5`
+        }).then((response) => {
+            return response.data;
+        })
+    }
 });
+
 //controllers
 myApp.controller('homeController', function($scope, cityService){
     $scope.city = cityService.city;
@@ -29,6 +39,16 @@ myApp.controller('homeController', function($scope, cityService){
     })
 });
 
-myApp.controller('forecastController', function($scope, cityService){
+myApp.controller('forecastController', function($scope, $resource, cityService){
     $scope.city = cityService.city;
+
+    // $scope.weatherAPI = $resource("http://api.openweathermap.org/data/2.5/weather?APPID=64c25a5bbade86005c613ed5edc028a5", {
+    //     callback: "JSON_CALLBACK" }, { get: { method: "JSONP" }
+    // });
+
+    
+    cityService.getWeather($scope.city).then(function(res) {
+        console.log(res)
+        $scope.weatherResult = res;
+    });
 });
