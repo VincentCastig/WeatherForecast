@@ -51,4 +51,8 @@ myApp.controller('forecastController', function($scope, $resource, cityService){
         console.log(res)
         $scope.weatherResult = res;
     });
+    //convert kelvin to fahrenheit
+    $scope.convertToFahrenheit = function(k) {
+        return Math.round((1.8 * (k - 273)) + 32)
+    }
 });
