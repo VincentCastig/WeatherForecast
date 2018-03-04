@@ -2,7 +2,7 @@
 var myApp = angular.module('myApp', ['ui.router', 'ngResource'])
 .config(function($stateProvider, $urlRouterProvider) {
 
-    $urlRouterProvider.otherwise('/home');
+    // $urlRouterProvider.otherwise('/home');
     
     $stateProvider
     .state('/', {
@@ -15,7 +15,7 @@ var myApp = angular.module('myApp', ['ui.router', 'ngResource'])
         templateUrl: './templates/forecast.html',
         controller: 'forecastController'
     })
-    .state('forecast/:days', {
+    .state('forecastDays', {
         url: '/forecast/:days',
         templateUrl: './templates/forecast.html',
         controller: 'forecastController'
